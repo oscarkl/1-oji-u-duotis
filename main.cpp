@@ -4,6 +4,8 @@
 #include <time.h> 
 #include <string>
 #include <vector>  
+#include <fstream>
+#include <sstream>
 int sk;
 
 using namespace std;
@@ -87,74 +89,132 @@ void galVid(int i) {
     rezult[i].gal = 0.6 * rezult[i].n.back() + 0.4 * rezult[i].vidurkis;
     rezult[i].galm = 0.6 * rezult[i].n.back() + 0.4 * rezult[i].med;
 }
+void input() {
+    ifstream fd("studentai10000.txt");
+    string data, A;
+    int sk;
+    int g = true;
+
+    getline(fd, data);
+    studentas temp;
+    studentas zero;
+    //while (eof) {
+        getline(fd, data);
+        stringstream X(data);
+        while (getline(X, A, ' ')) {
+            //cout << A << endl;
+            if (!isNumber(A))
+            {
+                if (g == true) {
+                    temp.vardas = A;
+                    //cout << A << endl;
+                    g = false;
+                }
+                else {
+                    temp.pavarde = A;
+                    //cout << A << endl;
+                    g = true;
+                }
+                
+            }
+            else {
+                //cout << A << endl;
+                sk = stoi(A);
+                temp.vidurkis += sk;
+                temp.n.push_back(sk);
+            }
+            
+        }   
+        temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
+        if ((temp.n.size() - 1) % 2 == 1) {
+            temp.med = temp.n[(temp.n.size() - 1) / 2];
+        }
+        else {
+            temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
+        }
+        temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
+        temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
+        rezult.push_back(temp);
+        cout << rezult[0].gal;
+    //}
+    fd.close();
+}
 
 
 int main() {
     srand(time(NULL));
     int studentSk;
     char type;
-    cout << "ivesti ar generuoti? i/g: ";
-    cin >> type;
-    if (type == 'i' || type == 'I') {
-        cout << "Studentu sk: ";
-        cin >> studentSk;
+    char skait;
+    cout << "ar skaityti is failo T/N";
+    cin >> skait;
+    if (skait == 'N' || skait == 'n') {
+        cout << "ivesti ar generuoti? i/g: ";
+        cin >> type;
+        if (type == 'i' || type == 'I') {
+            cout << "Studentu sk: ";
+            cin >> studentSk;
+            for (int i = 0; i < studentSk; i++) {
+                rezult.push_back(studentas());
+            }
+        }
+        if (type == 'g' || type == 'G') {
+            studentSk = rand() % 3 + 1;
+            cout << "Studentu sk: " << studentSk << endl;
+            for (int i = 0; i < studentSk; i++) {
+                rezult.push_back(studentas());
+            }
+        }
+        //cin >> rezult[0].vardas;
+        rezult[0].vardas = "oskaras";
         for (int i = 0; i < studentSk; i++) {
-            rezult.push_back(studentas());
-        }
-    }
-    if (type == 'g' || type == 'G') {
-        studentSk = rand() % 3 + 1;
-        cout << "Studentu sk: " << studentSk << endl;
-        for (int i = 0; i < studentSk; i++) {
-            rezult.push_back(studentas());
-        }
-    }
-    //cin >> rezult[0].vardas;
-    rezult[0].vardas = "oskaras";
-    for (int i = 0; i < studentSk; i++) {
-        ivestis(i, studentSk, type);
-        if (rezult[i].n.size() > 1) {
-            rezult[i].vidurkis = (rezult[i].vidurkis - rezult[i].n.back()) / (rezult[i].n.size()-1);
-            medi(i, rezult[i].n.size()-1);
-            galVid(i);
-        }
-        else {
-            rezult[i].gal = 0;
-            rezult[i].galm = 0;
-        }
-    }
-    int j = studentSk-1;
-    char ats;
-    bool y = true;
-    while (y) {
-        cout << "ar yra daugiau studentu? T/N" << endl;
-        cin >> ats;
-        if (ats == 'N' || ats == 'n') {
-            y = false;
-        }
-        else if (ats == 'T' || ats == 't') {
-            j++;
-            rezult.push_back(studentas());
-            rezult[j].vardas = "oskaras";
-            ivestis(j, j+1, type);
-            if (rezult[j].n.size() > 1) {
-                rezult[j].vidurkis = (rezult[j].vidurkis - rezult[j].n.back()) / (rezult[j].n.size() - 1);
-                medi(j, rezult[j].n.size() - 1);
-                galVid(j);
+            ivestis(i, studentSk, type);
+            if (rezult[i].n.size() > 1) {
+                rezult[i].vidurkis = (rezult[i].vidurkis - rezult[i].n.back()) / (rezult[i].n.size() - 1);
+                medi(i, rezult[i].n.size() - 1);
+                galVid(i);
             }
             else {
-                rezult[j].gal = 0;
-                rezult[j].galm = 0;
+                rezult[i].gal = 0;
+                rezult[i].galm = 0;
             }
         }
-        else {
-            cout << "netinkama ivestis" << endl;
+        int j = studentSk - 1;
+        char ats;
+        bool y = true;
+        while (y) {
+            cout << "ar yra daugiau studentu? T/N" << endl;
+            cin >> ats;
+            if (ats == 'N' || ats == 'n') {
+                y = false;
+            }
+            else if (ats == 'T' || ats == 't') {
+                j++;
+                rezult.push_back(studentas());
+                rezult[j].vardas = "oskaras";
+                ivestis(j, j + 1, type);
+                if (rezult[j].n.size() > 1) {
+                    rezult[j].vidurkis = (rezult[j].vidurkis - rezult[j].n.back()) / (rezult[j].n.size() - 1);
+                    medi(j, rezult[j].n.size() - 1);
+                    galVid(j);
+                }
+                else {
+                    rezult[j].gal = 0;
+                    rezult[j].galm = 0;
+                }
+            }
+            else {
+                cout << "netinkama ivestis" << endl;
+            }
+        }
+
+        cout << "Pavarde     Vardas     Galutinis(vid.) / Galutinis(med.)" << endl;
+        cout << "-----------------------------" << endl;
+        for (int i = 0; i < j + 1; i++) {
+            cout << rezult[i].vardas << "     " << rezult[i].pavarde << "     " << rezult[i].gal << "     " << rezult[i].galm << endl;
         }
     }
-   
-    cout << "Pavarde     Vardas     Galutinis(vid.) / Galutinis(med.)" << endl;
-    cout << "-----------------------------" << endl;
-    for (int i = 0; i < j+1; i++) {
-        cout << rezult[i].vardas << "     " << rezult[i].pavarde << "     " << rezult[i].gal << "     " << rezult[i].galm << endl;
+    if (skait == 'T' || skait == 't') {
+        input();
     }
 }
