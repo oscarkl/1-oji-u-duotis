@@ -16,9 +16,9 @@ struct studentas {
     string pavarde;
     double vidurkis = 0;
     double med, gal, galm;
-    int n [numb];
+    int n[numb];
 };
-studentas* rezult= new studentas[3];
+//studentas* rezult= new studentas[1];
 
 bool isNumber(const string& str)
 {
@@ -38,58 +38,62 @@ string sansas(string& nd) {
     return nd;
 }
 
-void ivestis(int i) {
+void ivestis(studentas rezult[], int i) {
     cout << "vardas: ";
     cin >> rezult[i].vardas;
+    cout << rezult[i].vardas;
     cout << "pavarde: ";
     cin >> rezult[i].pavarde;
-    
+
     for (int j = 0; j < numb; j++) {
         cout << "pazymys:";
         cin >> rezult[i].n[j];
     }
-    rezult[i].vidurkis = rezult[i].vidurkis - rezult[i].n[numb];
-    if ((numb-1) % 2 == 1) {
-        rezult[i].med = rezult[i].n[(numb-1) / 2];
+    rezult[i].vidurkis = (rezult[i].vidurkis - rezult[i].n[numb - 1]) / (numb - 1);
+    if ((numb - 1) % 2 == 1) {
+        rezult[i].med = rezult[i].n[(numb - 1) / 2];
     }
     else {
-        rezult[i].med = (rezult[i].n[(numb-1) / 2 - 1] + rezult[i].n[(numb-1) / 2]) / 2;
+        rezult[i].med = (rezult[i].n[(numb - 1) / 2 - 1] + rezult[i].n[(numb - 1) / 2]) / 2;
     }
-    rezult[i].gal = 0.6 * rezult[i].n[numb-1] + 0.4 * rezult[i].vidurkis;
-    rezult[i].galm = 0.6 * rezult[i].n[numb-1] + 0.4 * rezult[i].med;
+    rezult[i].gal = 0.6 * rezult[i].n[numb - 1] + 0.4 * rezult[i].vidurkis;
+    rezult[i].galm = 0.6 * rezult[i].n[numb - 1] + 0.4 * rezult[i].med;
 }
 
 int main() {
     srand(time(NULL));
     char tn = 'T';
-    for (int i = 0; i < 3; i++) {
-        ivestis(i);
+    int j;
+    cin>>j;
+    studentas* rezult = new studentas[j];
+    for (int i = 0; i < j; i++) {
+        ivestis(rezult, i);
     }
-    int j = 2;
-    while (tn == 'T' || tn == 't') {
-        j++;
-        studentas* temp = new studentas[j];
-        for (int k = 0; k < j - 1; k++)
-        {
-            temp[k] = rezult[k];
-        }
-        delete[] rezult;
-        studentas* rezult = new studentas[j];
-        for (int k = 0; k < j - 1; k++)
-        {
-            rezult[k] = temp[k];
-        }
-        ivestis(j);
-        delete[] temp;
-        cout << "ar yra dar studentu? T/N";
-        cin >> tn;
-
+    //while (tn == 'T' || tn == 't') {
+    j++;
+    studentas* temp = new studentas[j - 1];
+    for (int k = 0; k < j - 1; k++)
+    {
+        temp[k] = rezult[k];
     }
-    
+    //delete[] rezult;
+    //studentas* rezult = new studentas[j];
+    for (int k = 0; k < j - 1; k++)
+    {
+        //rezult[k] = temp[k];
+    }
+    //ivestis(rezult, j);
+    delete[] temp;
+    // cout << "ar yra dar studentu? T/N";
+    // cin >> tn;
 
-        cout << "Pavarde     Vardas     Galutinis(vid.) / Galutinis(med.)" << endl;
-        cout << "-----------------------------" << endl;
-        for (int i = 0; i < numb; i++) {
-            cout << rezult[i].vardas << "     " << rezult[i].pavarde << "     " << rezult[i].gal << "     " << rezult[i].galm << endl;
-        }
+// }
+
+
+    cout << "Pavarde     Vardas     Galutinis(vid.) / Galutinis(med.)" << endl;
+    cout << "-----------------------------" << endl;
+    for (int i = 0; i < j; i++) {
+        cout << rezult[i].vardas << "     " << rezult[i].pavarde << "     " << rezult[i].gal << "     " << rezult[i].galm << endl;
+    }
+    return 0;
 }
