@@ -45,7 +45,7 @@ void ivestis(int i, int max, char type) {
     cout << "pavarde: ";
     cin >> pavard;
     if (isNumber(pavard)) {
-        cout << "netinkama pavarde"<<endl;
+        cout << "netinkama pavarde" << endl;
         g = false;
         if (i + 1 < max) {
             rezult[i + 1].vardas = nd;
@@ -54,13 +54,13 @@ void ivestis(int i, int max, char type) {
     rezult[i].pavarde = pavard;
     while (g) {
         if (type == 'i' || type == 'I') {
-            cin>>nd;
+            cin >> nd;
         }
         if (type == 'g' || type == 'G') {
             nd = sansas(nd);
         }
-        
-        
+
+
         if (isNumber(nd)) {
             //cout << nd << endl;
             sk = stoi(nd);
@@ -69,7 +69,7 @@ void ivestis(int i, int max, char type) {
         }
         else {
             g = false;
-            
+
             if (i + 1 < max) {
                 rezult[i + 1].vardas = nd;
             }
@@ -78,7 +78,7 @@ void ivestis(int i, int max, char type) {
 }
 void medi(int i, int j) {
     if (j % 2 == 1) {
-       rezult[i].med = rezult[i].n[j / 2];
+        rezult[i].med = rezult[i].n[j / 2];
     }
     else {
         rezult[i].med = (rezult[i].n[j / 2 - 1] + rezult[i].n[j / 2]) / 2;
@@ -91,52 +91,55 @@ void galVid(int i) {
 }
 void input() {
     ifstream fd("studentai10000.txt");
-    string data, A;
+    string data;
     int sk;
-    int g = true;
-
+    int j = 0;
+    int g = true;  
     getline(fd, data);
     studentas temp;
     studentas zero;
-    //while (eof) {
-        getline(fd, data);
-        stringstream X(data);
-        while (getline(X, A, ' ')) {
-            //cout << A << endl;
-            if (!isNumber(A))
+    while (!fd.eof()) {  
+        fd >> data;
+            if (!isNumber(data))
             {
-                if (g == true) {
-                    temp.vardas = A;
-                    //cout << A << endl;
-                    g = false;
+                if (j == 1) {
+                    temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
+                    if ((temp.n.size() - 1) % 2 == 1) {
+                        temp.med = temp.n[(temp.n.size() - 1) / 2];
+                    }
+                    else {
+                        temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
+                    }
+                    temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
+                    temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
+                    rezult.push_back(temp);
+                    temp = zero;
                 }
-                else {
-                    temp.pavarde = A;
-                    //cout << A << endl;
-                    g = true;
-                }
-                
+                    temp.vardas = data;
+                    cout << data << endl;
+                    fd >> data;
+                    temp.pavarde = data;
+                    cout << data << endl;
             }
             else {
                 //cout << A << endl;
-                sk = stoi(A);
+                sk = stoi(data);
                 temp.vidurkis += sk;
                 temp.n.push_back(sk);
             }
-            
-        }   
-        temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
-        if ((temp.n.size() - 1) % 2 == 1) {
-            temp.med = temp.n[(temp.n.size() - 1) / 2];
-        }
-        else {
-            temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
-        }
-        temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
-        temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
-        rezult.push_back(temp);
-        cout << rezult[0].gal;
-    //}
+            j = 1;
+    }
+    temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
+    if ((temp.n.size() - 1) % 2 == 1) {
+        temp.med = temp.n[(temp.n.size() - 1) / 2];
+    }
+    else {
+        temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
+    }
+    temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
+    temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
+    rezult.push_back(temp);
+    cout << rezult[0].gal;
     fd.close();
 }
 
