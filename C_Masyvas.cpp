@@ -41,13 +41,13 @@ string sansas(string& nd) {
 void ivestis(studentas rezult[], int i) {
     cout << "vardas: ";
     cin >> rezult[i].vardas;
-    cout << rezult[i].vardas;
     cout << "pavarde: ";
     cin >> rezult[i].pavarde;
 
     for (int j = 0; j < numb; j++) {
         cout << "pazymys:";
         cin >> rezult[i].n[j];
+        rezult[i].vidurkis += rezult[i].n[j];
     }
     rezult[i].vidurkis = (rezult[i].vidurkis - rezult[i].n[numb - 1]) / (numb - 1);
     if ((numb - 1) % 2 == 1) {
@@ -63,33 +63,34 @@ void ivestis(studentas rezult[], int i) {
 int main() {
     srand(time(NULL));
     char tn = 'T';
-    int j;
-    cin>>j;
+    int j=1;
     studentas* rezult = new studentas[j];
-    for (int i = 0; i < j; i++) {
-        ivestis(rezult, i);
-    }
-    //while (tn == 'T' || tn == 't') {
-    j++;
-    studentas* temp = new studentas[j - 1];
-    for (int k = 0; k < j - 1; k++)
+    ivestis(rezult, 0);
+    studentas* temp = new studentas[j];
+    while (tn == 'T' || tn == 't') {
+    
+    for (int k = 0; k < j; k++)
     {
         temp[k] = rezult[k];
     }
-    //delete[] rezult;
-    //studentas* rezult = new studentas[j];
-    for (int k = 0; k < j - 1; k++)
+    cout << temp[0].vardas;
+    delete[] rezult;
+    j++;
+    rezult = new studentas[j];
+    //cout << sizeof(temp) << sizeof(rezult) << endl;
+    for (int k = 0; k < j-1; k++)
     {
-        //rezult[k] = temp[k];
+        rezult[k] = temp[k];
+        //cout << rezult[0].vardas<<endl;
     }
-    //ivestis(rezult, j);
     delete[] temp;
-    // cout << "ar yra dar studentu? T/N";
-    // cin >> tn;
-
-// }
-
-
+    temp = NULL;
+    ivestis(rezult, j-1);   
+    cout << "ar yra dar studentu? T/N";
+    cin >> tn;
+    temp = new studentas[j];    
+    }
+    delete[] temp;
     cout << "Pavarde     Vardas     Galutinis(vid.) / Galutinis(med.)" << endl;
     cout << "-----------------------------" << endl;
     for (int i = 0; i < j; i++) {
