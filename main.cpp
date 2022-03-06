@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <stdlib.h>
 #include <stdio.h> 
 #include <time.h> 
@@ -91,7 +92,7 @@ void galVid(int i) {
     rezult[i].galm = 0.6 * rezult[i].n.back() + 0.4 * rezult[i].med;
 }
 void input() {
-    ifstream fd("studentai10000.txt");
+    ifstream fd("kursiokai.txt");
     string data;
     int sk;
     int j = 0;
@@ -131,6 +132,7 @@ void input() {
         }
         
     }
+    //cout << rezult.size() << " ";
     temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
     if ((temp.n.size() - 1) % 2 == 1) {
         temp.med = temp.n[(temp.n.size() - 1) / 2];
@@ -143,14 +145,15 @@ void input() {
     rezult.push_back(temp);
     temp = zero;
     fd.close();
+    
 }
 
 void output() {
     ofstream fr("ats.txt");
-    fr << "Pavarde     Vardas     Galutinis(vid.) / Galutinis(med.)" << endl;
+    fr << left << setw(16) << "Vardas" << left << setw(16)<<"Pavarde"<< left << setw(16)<<"Galutinis(vid.)" << left << setw(16)<< "Galutinis(med.)" << endl;
     fr << "-----------------------------" << endl;
     for (int i = 0; i < rezult.size(); i++) {
-        fr << rezult[i].vardas << "     " << rezult[i].pavarde << "     " << rezult[i].gal << "     " << rezult[i].galm << endl;
+        fr << left << setw(16) << rezult[i].vardas << left << setw(16) << rezult[i].pavarde << left << setw(16) << fixed << setprecision(2)<< rezult[i].gal << left << setw(16) << fixed << setprecision(2)<< rezult[i].galm << endl;
     }
     fr.close();
 }
@@ -223,10 +226,10 @@ int main() {
             }
         }
 
-        cout << "Pavarde     Vardas     Galutinis(vid.) / Galutinis(med.)" << endl;
+        cout << left << setw(16) << "Vardas" << left << setw(16) << "Pavarde" << left << setw(16) << "Galutinis(vid.)" << left << setw(16) << "Galutinis(med.)" << endl;
         cout << "-----------------------------" << endl;
         for (int i = 0; i < j + 1; i++) {
-            cout << rezult[i].vardas << "     " << rezult[i].pavarde << "     " << rezult[i].gal << "     " << rezult[i].galm << endl;
+            cout << left << setw(16) << rezult[i].vardas << left << setw(16) << rezult[i].pavarde << left << setw(16) << fixed << setprecision(2) << rezult[i].gal << left << setw(16) << fixed << setprecision(2) << rezult[i].galm << endl;
         }
     }
     if (skait == 'T' || skait == 't') {
