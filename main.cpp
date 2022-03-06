@@ -6,6 +6,7 @@
 #include <vector>  
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 int sk;
 
 using namespace std;
@@ -94,40 +95,41 @@ void input() {
     string data;
     int sk;
     int j = 0;
-    int g = true;  
+    int g = true;
     getline(fd, data);
     studentas temp;
     studentas zero;
-    while (!fd.eof()) {  
+    while (!fd.eof()) {
         fd >> data;
-            if (!isNumber(data))
-            {
-                if (j == 1) {
-                    temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
-                    if ((temp.n.size() - 1) % 2 == 1) {
-                        temp.med = temp.n[(temp.n.size() - 1) / 2];
-                    }
-                    else {
-                        temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
-                    }
-                    temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
-                    temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
-                    rezult.push_back(temp);
-                    temp = zero;
+        if (!isNumber(data))
+        {
+            if (j == 1) {
+                temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
+                if ((temp.n.size() - 1) % 2 == 1) {
+                    temp.med = temp.n[(temp.n.size() - 1) / 2];
                 }
-                    temp.vardas = data;
-                    cout << data << endl;
-                    fd >> data;
-                    temp.pavarde = data;
-                    cout << data << endl;
+                else {
+                    temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
+                }
+                temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
+                temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
+                rezult.push_back(temp);
+                //cout << temp.vardas << " " << temp.pavarde <<" "<<temp.gal<<endl;
+                temp = zero;
             }
-            else {
-                //cout << A << endl;
-                sk = stoi(data);
-                temp.vidurkis += sk;
-                temp.n.push_back(sk);
-            }
+            temp.vardas = data;
+            fd >> data;
+            temp.pavarde = data;
+            
+        }
+        else {
+            //cout << temp.vardas << endl;
+            sk = stoi(data);
+            temp.vidurkis += sk;
+            temp.n.push_back(sk);
             j = 1;
+        }
+        
     }
     temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
     if ((temp.n.size() - 1) % 2 == 1) {
@@ -139,8 +141,18 @@ void input() {
     temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
     temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
     rezult.push_back(temp);
-    cout << rezult[0].gal;
+    temp = zero;
     fd.close();
+}
+
+void output() {
+    ofstream fr("ats.txt");
+    fr << "Pavarde     Vardas     Galutinis(vid.) / Galutinis(med.)" << endl;
+    fr << "-----------------------------" << endl;
+    for (int i = 0; i < rezult.size(); i++) {
+        fr << rezult[i].vardas << "     " << rezult[i].pavarde << "     " << rezult[i].gal << "     " << rezult[i].galm << endl;
+    }
+    fr.close();
 }
 
 
@@ -219,5 +231,11 @@ int main() {
     }
     if (skait == 'T' || skait == 't') {
         input();
+        sort(rezult.begin(), rezult.end(), [](const studentas& a, const studentas& b)
+            {
+                return a.vardas < b.vardas;
+            });
+        output();                   
+        
     }
 }
