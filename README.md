@@ -1,7 +1,7 @@
-Pirmoji Užduotis - v0.1 
+Pirmoji Užduotis - v0.2
 
-Aprašymas v0.12
-Ši programa paėma studento vardą, pavardę, namų darbų rezultatus ir egzamino rezultatą ir apskaičiuoją vidurkį pagal šią formulę
+Aprašymas v0.2
+Ši programa paėma studento vardą, pavardę, namų darbų rezultatus ir egzamino rezultatą iš teksto failo ir apskaičiuoją vidurkį pagal šią formulę
 GalutinisVid = 0.4 * vidurkis + 0.6 egzaminas
 Taip pat galutinis vidurkis yra skaičiuojamas pagal medianą; 
 GalutinisVid = 0.4 * mediana + 0.6 * egzaminas 
@@ -10,10 +10,11 @@ programa gavus visus duomenis išspausdina studento vardą, pavardę ir abu galu
 Failai 
 Užduotį sudaro **main.cpp** failas
 Kuriame viskas saugoma yra vektoriuose. 
+**kursiokai.txt** failas iš kurio traukemi visi duomenys
+**ats.txt** failas kuriame spausdinami visi duomenys
 
 Instrukcijos 
 Programos naudojimo gidas: 
-1. Programa pradžioj paklausia vartotojo ar atsitiktinai generuoti ar ivesti duomenis
-2. pasirinkus ivestį vartotojas iveda kiek studentų, kiekvienam priskiria vardą, pavardę, ir įveda jo pažymius, programa pereina prie kito studento/susistabdo kai vietoj skaitinės vertės ivedama kazkoks simbolis ar string kuris tada priskiriamas kaip kito studento varas.
-3. pasirinkus generavimą programa atomatiškai sugeneruoja kažkoki studentų skaičiū, kiekvienam studentui priskiriamas vardas "oskaras", tačiau pavardę vistiek įveda vartotojas, tada yra generuojama skaičiai tarp 1 ir 10, ir yra 1/8 šansas, kad vietoj skaičiaus įves vardą kuris bus priskiriamas sekančiuj studentui.
-4. pasibaigus pradiniam studentu skaiciui programa klausia ar dar nori pridėti studentu, atsakius ne programa baigiasi ir atspausdina sarašą visų studentų su jų vidurkiais, atsakius taip ivedami dar vieno studento duomenys, klausimas kartojasi kol vartotojas atsako ne
+1. Programa paklausa vartotojo ar skaityti duomenis iš teksto failo, jei ne vykdoma v0.1 versija
+2. Jei pasirinkta taip duomenys skaitomi is failo tol, kol failas turi duomenų
+3. Programa žino kada prasideda naujas studentas kai gauti duomenys nėra skaičius, o vardas
