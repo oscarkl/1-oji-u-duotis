@@ -1,6 +1,6 @@
 Pirmoji Užduotis - v0.3
 
-Aprašymas v0.2
+Aprašymas v0.3
 Ši programa paėma studento vardą, pavardę, namų darbų rezultatus ir egzamino rezultatą iš teksto failo ir apskaičiuoją vidurkį pagal šią formulę
 GalutinisVid = 0.4 * vidurkis + 0.6 egzaminas
 Taip pat galutinis vidurkis yra skaičiuojamas pagal medianą; 
