@@ -8,36 +8,14 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+
+#include "struktura.h"
+#include "skaiciai.h"
 int sk;
 
 using namespace std;
 
-struct studentas {
-    string vardas;
-    string pavarde;
-    double vidurkis = 0;
-    double med, gal, galm;
-    vector<int> n;
-};
-
-bool isNumber(const string& str)
-{
-    for (char const& c : str) {
-        if (std::isdigit(c) == 0) return false;
-    }
-    return true;
-}
 vector<studentas> rezult;
-
-string sansas(string& nd) {
-    if (rand() % 8 != 0) {
-        nd = to_string(rand() % 10 + 1);
-    }
-    else {
-        nd = "oskaras";
-    }
-    return nd;
-}
 
 void ivestis(int i, int max, char type) {
     string pavard;
@@ -59,7 +37,7 @@ void ivestis(int i, int max, char type) {
             cin >> nd;
         }
         if (type == 'g' || type == 'G') {
-            nd = sansas(nd);
+            nd = sansas(nd, rand());
         }
 
 
