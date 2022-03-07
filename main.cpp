@@ -22,10 +22,10 @@ void ivestis(int i, int max, char type) {
     string nd;
     int sk;
     bool g = true;
-    cout << "pavarde: ";
+    std::cout << "pavarde: ";
     cin >> pavard;
     if (isNumber(pavard)) {
-        cout << "netinkama pavarde" << endl;
+        std::cout << "netinkama pavarde" << endl;
         g = false;
         if (i + 1 < max) {
             rezult[i + 1].vardas = nd;
@@ -142,13 +142,31 @@ int main() {
     int studentSk;
     char type;
     char skait;
-    cout << "ar skaityti is failo T/N";
+    std::cout << "ar skaityti is failo T/N";
     cin >> skait;
+    try {     
+        if (skait != 'T' || skait != 't' || skait != 'N' || skait != 'n')
+        {
+            throw "netinkama ivestis";
+        }       
+    }
+    catch(...){
+        std::cout << "netinkama ivestis" << endl;
+    }
     if (skait == 'N' || skait == 'n') {
-        cout << "ivesti ar generuoti? i/g: ";
+        std::cout << "ivesti ar generuoti? i/g: ";
         cin >> type;
+        try {
+            if (type != 'I' || type != 'i' || type != 'G' || type != 'g')
+            {
+                throw "netinkama ivestis";
+            }
+        }
+        catch (...) {
+            std::cout << "netinkama ivestis" << endl;
+        }
         if (type == 'i' || type == 'I') {
-            cout << "Studentu sk: ";
+            std::cout << "Studentu sk: ";
             cin >> studentSk;
             for (int i = 0; i < studentSk; i++) {
                 rezult.push_back(studentas());
@@ -156,7 +174,7 @@ int main() {
         }
         if (type == 'g' || type == 'G') {
             studentSk = rand() % 3 + 1;
-            cout << "Studentu sk: " << studentSk << endl;
+            std::cout << "Studentu sk: " << studentSk << endl;
             for (int i = 0; i < studentSk; i++) {
                 rezult.push_back(studentas());
             }
@@ -179,7 +197,7 @@ int main() {
         char ats;
         bool y = true;
         while (y) {
-            cout << "ar yra daugiau studentu? T/N" << endl;
+            std::cout << "ar yra daugiau studentu? T/N" << endl;
             cin >> ats;
             if (ats == 'N' || ats == 'n') {
                 y = false;
@@ -200,14 +218,14 @@ int main() {
                 }
             }
             else {
-                cout << "netinkama ivestis" << endl;
+                std::cout << "netinkama ivestis" << endl;
             }
         }
 
-        cout << left << setw(16) << "Vardas" << left << setw(16) << "Pavarde" << left << setw(16) << "Galutinis(vid.)" << left << setw(16) << "Galutinis(med.)" << endl;
-        cout << "-----------------------------" << endl;
+        std::cout << left << setw(16) << "Vardas" << left << setw(16) << "Pavarde" << left << setw(16) << "Galutinis(vid.)" << left << setw(16) << "Galutinis(med.)" << endl;
+        std::cout << "-----------------------------" << endl;
         for (int i = 0; i < j + 1; i++) {
-            cout << left << setw(16) << rezult[i].vardas << left << setw(16) << rezult[i].pavarde << left << setw(16) << fixed << setprecision(2) << rezult[i].gal << left << setw(16) << fixed << setprecision(2) << rezult[i].galm << endl;
+            std::cout << left << setw(16) << rezult[i].vardas << left << setw(16) << rezult[i].pavarde << left << setw(16) << fixed << setprecision(2) << rezult[i].gal << left << setw(16) << fixed << setprecision(2) << rezult[i].galm << endl;
         }
     }
     if (skait == 'T' || skait == 't') {
