@@ -1,4 +1,4 @@
-Pirmoji Užduotis - v0.2
+Pirmoji Užduotis - v0.3
 
 Aprašymas v0.2
 Ši programa paėma studento vardą, pavardę, namų darbų rezultatus ir egzamino rezultatą iš teksto failo ir apskaičiuoją vidurkį pagal šią formulę
@@ -12,6 +12,8 @@ Užduotį sudaro **main.cpp** failas
 Kuriame viskas saugoma yra vektoriuose. 
 **kursiokai.txt** failas iš kurio traukemi visi duomenys
 **ats.txt** failas kuriame spausdinami visi duomenys
+**struktura.h** failas kuriame laikoma struktūros aprašymas
+**skaiciai.h** failas kuriame laikoma tikrinimo ar skaičius ir skaičių generavimo funkcijos
 
 Instrukcijos 
 Programos naudojimo gidas: 
