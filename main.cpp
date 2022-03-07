@@ -71,59 +71,65 @@ void galVid(int i) {
 }
 void input() {
     ifstream fd("kursiokai.txt");
-    string data;
-    int sk;
-    int j = 0;
-    int g = true;
-    getline(fd, data);
-    studentas temp;
-    studentas zero;
-    while (!fd.eof()) {
-        fd >> data;
-        if (!isNumber(data))
-        {
-            if (j == 1) {
-                temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
-                if ((temp.n.size() - 1) % 2 == 1) {
-                    temp.med = temp.n[(temp.n.size() - 1) / 2];
-                }
-                else {
-                    temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
-                }
-                temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
-                temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
-                rezult.push_back(temp);
-                //cout << temp.vardas << " " << temp.pavarde <<" "<<temp.gal<<endl;
-                temp = zero;
-            }
-            temp.vardas = data;
-            fd >> data;
-            temp.pavarde = data;
-            
+    if (fd) {
+        if (fd.eof()) {
+            cout << "failas yra tuscias" << endl;
         }
         else {
-            //cout << temp.vardas << endl;
-            sk = stoi(data);
-            temp.vidurkis += sk;
-            temp.n.push_back(sk);
-            j = 1;
+            string data;
+            int sk;
+            int j = 0;
+            int g = true;
+            getline(fd, data);
+            studentas temp;
+            studentas zero;
+            while (!fd.eof()) {
+                fd >> data;
+                if (!isNumber(data))
+                {
+                    if (j == 1) {
+                        temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
+                        if ((temp.n.size() - 1) % 2 == 1) {
+                            temp.med = temp.n[(temp.n.size() - 1) / 2];
+                        }
+                        else {
+                            temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
+                        }
+                        temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
+                        temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
+                        rezult.push_back(temp);
+                        //cout << temp.vardas << " " << temp.pavarde <<" "<<temp.gal<<endl;
+                        temp = zero;
+                    }
+                    temp.vardas = data;
+                    fd >> data;
+                    temp.pavarde = data;
+
+                }
+                else {
+                    //cout << temp.vardas << endl;
+                    sk = stoi(data);
+                    temp.vidurkis += sk;
+                    temp.n.push_back(sk);
+                    j = 1;
+                }
+
+            }
+            //cout << rezult.size() << " ";
+            temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
+            if ((temp.n.size() - 1) % 2 == 1) {
+                temp.med = temp.n[(temp.n.size() - 1) / 2];
+            }
+            else {
+                temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
+            }
+            temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
+            temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
+            rezult.push_back(temp);
+            temp = zero;
+            fd.close();
         }
-        
     }
-    //cout << rezult.size() << " ";
-    temp.vidurkis = (temp.vidurkis - temp.n.back()) / (temp.n.size() - 1);
-    if ((temp.n.size() - 1) % 2 == 1) {
-        temp.med = temp.n[(temp.n.size() - 1) / 2];
-    }
-    else {
-        temp.med = (temp.n[(temp.n.size() - 1) / 2 - 1] + temp.n[(temp.n.size() - 1) / 2]) / 2;
-    }
-    temp.gal = 0.6 * temp.n.back() + 0.4 * temp.vidurkis;
-    temp.galm = 0.6 * temp.n.back() + 0.4 * temp.med;
-    rezult.push_back(temp);
-    temp = zero;
-    fd.close();
-    
 }
 
 void output() {
