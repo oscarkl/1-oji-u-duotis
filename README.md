@@ -1,7 +1,7 @@
 Pirmoji Užduotis - v0.5
 
-|Skaitymas/Rusiavimas|
-|---|
+||Skaitymas/Rusiavimas||
+||---||
 |Vector|List|Deque|
 |1000|0.002/0.0003|0.005/0.0002|0.002/0.0005|
 |10000|0.02/0.006|0.015/0.003|0.014/0.006|
