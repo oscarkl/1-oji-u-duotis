@@ -100,20 +100,22 @@ void input(int& o) {
         }
     }
 }
+bool rusiavimas(const studentas& lhs, const studentas& rhs) {
+    if (lhs.vardas != rhs.vardas) return lhs.vardas < rhs.vardas;
+    else return lhs.vardas < rhs.vardas;
+}
+bool compare_5(const studentas& v) { return v.gal == 5; }
 
 void output(int o) {
     //cout << rezult[0].gal;
     auto is = chrono::high_resolution_clock::now();
     deque<studentas> kietiakai;
     deque<studentas> nevyk;
+    sort(rezult.begin(), rezult.end(), rusiavimas);
     for (auto& stud : rezult) {
         if (stud.gal >= 5) kietiakai.push_back(stud);
         else nevyk.push_back(stud);
-    }
-
-
-
-    //rezult.resize(rezult.size()-kietiakai.size());    
+    }   
     rezult.clear();
 
     auto out = chrono::high_resolution_clock::now();
@@ -206,7 +208,7 @@ int main() {
         cout << "(3) 100000" << endl;
         cout << "(4) 1000000" << endl;
         cout << "(5) 10000000" << endl;
-        o = 3;
+        cin >> o;
     }
     auto in = chrono::high_resolution_clock::now();
     input(o);
