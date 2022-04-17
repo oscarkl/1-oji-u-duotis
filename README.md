@@ -52,3 +52,4 @@ Skaitymas/Rusiavimas
 1000000   1.4/0.77     1.4/0.4      1.35/0.9  
 10000000  13.7/10      13/6         13.4/13.9  
 </pre>
+**i6vada - laikai yra panašūs, išskyrus list rūšiavimas yra 2x greitesnis kadangi jis naudoja built-in funkciją**
