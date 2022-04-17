@@ -18,7 +18,7 @@ void input(int& o) {
     char skait;
     if (o == 0) {
         cout << "ar norite naudoti jau sugeneruotus studenus? T/N:" << endl;
-        cin >> skait;
+        skait = 'T';
         if (skait == 'T' || skait == 't')
         {
             cout << "pasirinkite faila kuri skaityti" << endl;
@@ -27,7 +27,7 @@ void input(int& o) {
             cout << "(3) 100000" << endl;
             cout << "(4) 1000000" << endl;
             cout << "(5) 10000000" << endl;
-            o = 3;
+            o = 4;
         }
     }
     string name = "Kurstiokai.txt";
@@ -104,50 +104,35 @@ bool rusiavimas(const studentas& lhs, const studentas& rhs) {
     if (lhs.vardas != rhs.vardas) return lhs.vardas < rhs.vardas;
     else return lhs.vardas < rhs.vardas;
 }
+void RemoveRezult(std::list<studentas>& ab) {
+    ab.erase(
+        std::remove_if(ab.begin(), ab.end(), [&](studentas const& ab) {
+            return ab.gal < 5;
+            }),
+        ab.end());
+}
 bool compare_5(const studentas& v) { return v.gal == 5; }
 
 void output(int o) {
-    //cout << rezult[0].gal;
     auto is = chrono::high_resolution_clock::now();
-    list<studentas> kietiakai;
+    //vector<studentas> kietiakai;
     list<studentas> nevyk;
     rezult.sort(rusiavimas);
     for (auto& stud : rezult) {
-        if (stud.gal >= 5) kietiakai.push_back(stud);
-        else nevyk.push_back(stud);
-    }   
-    rezult.clear();
+        if (stud.gal < 5) {
+            nevyk.push_back(stud);
+        }
+    }
+    RemoveRezult(rezult);
+    //cout << nevyk.size();
+    //rezult.clear();
 
     auto out = chrono::high_resolution_clock::now();
-    auto dura = chrono::duration_cast<chrono::microseconds>(out - is);
-    durs = dura.count();
+    auto durt = chrono::duration_cast<chrono::microseconds>(out - is);
+    durs = durt.count();
     ofstream fr("ats.txt");
-    fr << left << setw(16) << "Vardas" << left << setw(16) << "Pavarde" << left << setw(16) << "Galutinis(vid.)" << left << setw(16) << "Galutinis(med.)" << endl;
-    fr << "-----------------------------" << endl;
-    for (std::list<studentas>::iterator iter = rezult.begin(); iter != rezult.end(); ++iter) {
-        fr << left << setw(16) << iter->vardas << left << setw(16) << iter->pavarde << left << setw(16) << fixed << setprecision(2) << iter->gal << left << setw(16) << fixed << setprecision(2) << iter->galm << endl;
-    }
-    fr.close();
-    if (o > 0) {
-        ofstream fr("nevykeliai.txt");
-        fr << left << setw(16) << "Vardas" << left << setw(16) << "Pavarde" << left << setw(16) << "Galutinis(vid.)" << left << setw(16) << "Galutinis(med.)" << endl;
-        fr << "-----------------------------" << endl;
-        for (std::list<studentas>::iterator it = nevyk.begin(); it != nevyk.end(); ++it) {
-            fr << left << setw(16) << it->vardas << left << setw(16) << it->pavarde << left << setw(16) << fixed << setprecision(2) << it->gal << left << setw(16) << fixed << setprecision(2) << it->galm << endl;
-        }
-        nevyk.clear();
-        fr.close();
-        ofstream fp("kietiakai.txt");
-        fp << left << setw(16) << "Vardas" << left << setw(16) << "Pavarde" << left << setw(16) << "Galutinis(vid.)" << left << setw(16) << "Galutinis(med.)" << endl;
-        fp << "-----------------------------" << endl;
-        for (std::list<studentas>::iterator ite = kietiakai.begin(); ite != kietiakai.end(); ++ite) {
-            fp << left << setw(16) << ite->vardas << left << setw(16) << ite->pavarde << left << setw(16) << fixed << setprecision(2) << ite->gal << left << setw(16) << fixed << setprecision(2) << ite->galm << endl;
-        }
-        kietiakai.clear();
-        fp.close();
-    }
     auto end = chrono::high_resolution_clock::now();
-    auto durb = chrono::duration_cast<chrono::microseconds>(out - is);
+    auto durb = chrono::duration_cast<chrono::microseconds>(end - out);
     duro = durb.count();
 }
 
@@ -190,7 +175,7 @@ int main() {
 
     int o;
     cout << "ar generuoti failus? T/N" << endl;
-    cin >> skait;
+    skait = 'N';
     if (skait == 'N' || skait == 'n') {
         o = 0;
         //input(o);
@@ -221,14 +206,14 @@ int main() {
     auto pa = chrono::high_resolution_clock::now();
     auto ilg = chrono::duration_cast<chrono::microseconds>(pa - pr);
 
+    cout << endl;
     for (int i = 0; i < 5; i++) {
-        cout << "failo is " << fixed << int(1000 * pow(10, i)) << " skaiciu generavimas: " << dur[i] << endl;
+        //cout << "failo is " << fixed << int(1000 * pow(10, i)) << " skaiciu generavimas: " << dur[i] << endl;
         if (o == i + 1) {
             cout << "skaitymas is " << fixed << int(1000 * pow(10, i)) << " skaiciu failo: " << dura.count() / double(1000000) << endl;
             cout << "rusiavimas " << fixed << int(1000 * pow(10, i)) << " skaiciu failo: " << durs / double(1000000) << endl;
             cout << "surusiuotu studentu is " << fixed << int(1000 * pow(10, i)) << " skaiciu failo spausdinimas: " << duro / double(1000000) << endl;
         }
-        cout << endl;
     }
     auto pab = chrono::high_resolution_clock::now();
     auto truk = chrono::duration_cast<chrono::milliseconds>(pab - pradz);
