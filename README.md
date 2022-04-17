@@ -1,13 +1,12 @@
-Pirmoji Užduotis - v0.5  
+Pirmoji Užduotis - v1.0
 ====
+Palyginimas 1 ir 2 strategijos su 1mil dydžio failu
+==
 
 Skaitymas/Rusiavimas
 ---
 <pre>
-          Vector       List         Deque  
-1000      0.002/0.0003 0.005/0.0002 0.002/0.0005  
-10000     0.02/0.006   0.015/0.003  0.014/0.006  
-100000    0.14/0.07    0.14/0.05    0.13/0.085  
-1000000   1.4/0.77     1.4/0.4      1.35/0.9  
-10000000  13.7/10      13/6         13.4/13.9  
-</pre>
+          1Strategija     2Strategija
+Vector    2.223           2.107
+List      1.84            1.67
+Deque     2.36            2.09
