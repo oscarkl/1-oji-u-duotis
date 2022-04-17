@@ -9,6 +9,7 @@ Taip pat galutinis vidurkis yra skaičiuojamas pagal medianą;
 GalutinisVid = 0.4 * mediana + 0.6 * egzaminas   
 Teksto failą gailma naujai sugeneruoti ir tai sukurs 5 failus su dydžiais nuo 1000 iki 10000000  
 Programa gavus visus duomenis išrūšiuoja studentus į dvi grupes: kietiakai ir nevykeliai ir tada juos išspausdina i 2 atskirus failus su studento vardu, pavardę ir abiejais galutinio vidurkio variantais  
+Taip pat ekrane spausdina programos veikimo laiką bei išskirsto jį į generavimą failų, skaitymą iš failo, rusiavima vektoriaus į dvi grupes, spausdinimą failo, visos programos veikimo laika
 
 Failai 
 ==
